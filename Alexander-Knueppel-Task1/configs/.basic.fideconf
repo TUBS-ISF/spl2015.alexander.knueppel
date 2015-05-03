@@ -1,0 +1,33 @@
+# Lists all features from the model with manual (first digit) and automatic (second digit) selection
+# 0 = deselected, 1 = selected, 2 = undefined
+21MLToolkit
+21UserInterface
+12Graphical
+12Console
+22Development
+22Debug
+22ErrorLogging
+12Logging
+21Tasks
+11Classification
+12KNN
+12NeuralNetworks
+22NaiveBayes
+22SVM
+11Clustering
+12KMeans
+11Regression
+12RANSAC
+22Visualization
+22ScatterPlotMatrix
+22Histogram
+21DataSetImport
+12dat
+12csv
+22arff
+21Evaluation
+12KappaStatistics
+22F1Score
+12MeanAbsError
+12MeanSqrError
+21DaviesBouldinIndex
