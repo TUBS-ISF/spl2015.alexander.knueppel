@@ -64,13 +64,33 @@ public class Configuration {
 	public Set<DataFormats> dataFormats() {
 		return dataFormats;
 	}
-	
-	public void parseArguments(String[] args) throws IllegalArgumentException {
+	public void printUsage() {
+		//TODO
+	}
+	public void parseArguments(String[] args) throws IllegalArgumentException, SecurityException, IOException {
+		clear();
+		
 		for(String arg : args) {
 			if(arg.equalsIgnoreCase("--cli"))
 				cli = true;
-			else if(arg.equalsIgnoreCase("--logging"))
-				logging = true;
+			else if(arg.equalsIgnoreCase("--debug")) {
+				debug = true;
+				logger.setLevel(Level.FINEST);
+			}
+			else if(arg.toLowerCase().startsWith("--logging")) {
+				if(arg.equalsIgnoreCase("--logging=console"))
+					logger.addHandler(new ConsoleHandler());
+				else if(arg.equalsIgnoreCase("--logging=file"))
+					logger.addHandler(new FileHandler());
+				else if(arg.equalsIgnoreCase("--logging")) {
+					logger.addHandler(new FileHandler());
+					logger.addHandler(new ConsoleHandler());
+				} else {
+					throw new IllegalArgumentException("Wrong usage of '--logging'. '" + arg + "' is not a valid argument. Execution abborted.");
+				}
+				if(!logger.getLevel().equals(Level.FINEST))
+					logger.setLevel(Level.INFO);
+			}
 			else if(arg.equalsIgnoreCase("--nodat"))
 				dataFormats.remove(DataFormats.DF_DAT);
 			else if(arg.equalsIgnoreCase("--nocsv"))
