@@ -1,7 +1,12 @@
 package application;
 
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Configuration class for second exercise
