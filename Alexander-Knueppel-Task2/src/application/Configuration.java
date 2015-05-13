@@ -21,29 +21,36 @@ public class Configuration {
 	/*
 	 *  status variables, only a few for now for the second exercise
 	 */
-	//enable logging
-	private boolean logging;
+	//enable debugging for enhanced informations
+	private boolean debug;
 	//use command line interface instead of gui
 	private boolean cli;
 	//development or production
 	private boolean development;
 	//list of allowed data formats
 	private Set<DataFormats> dataFormats; 
+	//global logging unit
+	static Logger logger = Logger.getLogger("theLogger");
 	
 	public Configuration(boolean development) {
 		this.development = development;
+		clear();
+	}
+	
+	public void clear() {
 		//defaults
-		logging = false;
+		debug = false;
 		cli = false;
 		dataFormats = new HashSet<DataFormats>();
 		dataFormats.add(DataFormats.DF_DAT);
 		dataFormats.add(DataFormats.DF_CSV);
 		dataFormats.add(DataFormats.DF_ARFF);
+		logger.setLevel(Level.OFF); 
 	}
 	
 	//getter
-	public boolean logging() {
-		return logging;
+	public boolean dbg() {
+		return debug;
 	}
 	
 	public boolean cli() {
