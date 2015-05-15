@@ -1,12 +1,16 @@
 package application;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import application.features.Feature;
 
 /**
  * Configuration class for second exercise
@@ -31,6 +35,8 @@ public class Configuration {
 	private Set<DataFormats> dataFormats; 
 	//global logging unit
 	static Logger logger = Logger.getLogger("theLogger");
+	//global feature list
+	static List<Feature> featureList = new ArrayList<Feature>();
 	
 	public Configuration(boolean development) {
 		this.development = development;
