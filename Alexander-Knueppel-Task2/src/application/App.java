@@ -3,6 +3,9 @@ package application;
 import java.io.IOException;
 import java.util.logging.Level;
 
+import application.iohandler.cli.CLIHandler;
+import application.iohandler.gui.GUIHandler;
+
 public class App {
 	
 	public static void main(String[] args) {
@@ -13,11 +16,14 @@ public class App {
 			if(config.cli()) {
 				Configuration.logger.log(Level.INFO, "Starting command line interface...");
 				// add cli handler
+				CLIHandler cli = new CLIHandler(config);
+				cli.run();
 			} else {
 				Configuration.logger.log(Level.INFO, "Starting graphical userinterface...");
 				// add gui handler
+				GUIHandler gui = new GUIHandler(config);
+				gui.run();
 			}
-			// add features
 			
 		} catch(IllegalArgumentException e) {
 			Configuration.logger.log(Level.SEVERE, e.getMessage());
