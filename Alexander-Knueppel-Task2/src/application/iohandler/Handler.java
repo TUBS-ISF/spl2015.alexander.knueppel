@@ -10,6 +10,6 @@ public abstract class Handler {
 		this.config = config;
 	}
 	public abstract void run();
-	
-	
+	public abstract boolean initialize();
+	public abstract void shutdown();
 }
