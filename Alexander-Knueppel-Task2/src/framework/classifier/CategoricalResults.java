@@ -33,8 +33,12 @@ public class CategoricalResults implements Cloneable {
         probabilities[category] = probability;
     }
 	
-	public void incProb(int cat, double prob) {
-        //TODO
+	public void incProb(int category, double probability) {
+		if(category > probabilities.length)
+            throw new IndexOutOfBoundsException("There are only " + probabilities.length + " posibilties. " + category + " is invalid");
+        else if(probability < 0 || Double.isInfinite(probability) || Double.isNaN(probability))
+            throw new ArithmeticException("Only zero and positive values are valid, not " + probability);
+        probabilities[category] += probability;
     }
 	
 	public int mostLikely() {
