@@ -11,6 +11,23 @@
 Ohne das Laden des arff features lässt sich die Klassifizierung nicht benutzen, da Standardformate wie dat oder csv 
 noch nicht implementiert sind.	
 
+## Getestete Kombinationen
+
+### 1. Parameter: --cli --arff --logging
+
+Es wird das command line interface gestartet. Mit 'help' lässt sich eine Liste der Befehle anzeigen.
+Da das arff-Feature geladen wurde, steht auchd er befehö *load [file]* zur Verfügung, über den *.arff-Files geladen werden können.
+Da sich die Applikation im Development-Modus befindet, wird der stacktrace ausgegeben, sobald eine Exception ausgelöst wird
+(beispielsweise bei nicht gefunder Datei).
+
+Ebenfalls ist logging aktiviert. Eine Logging-Datei wird dabei im User-Verzeichnis des Betriebssystems angelegt.
+Da debug an ist, wird von *finest* bis *severe* alles geloggt.
+
+### 2. Parameter: --cli --arff --surpress-debug
+
+Ähnlich zu 1. Allerdings wird nichts geloggt. Außerdem wird nun eine stable-version emuliert mit *surpess-debug*.
+Dies hat zur Folge, dass nun normale Hinweise ausgegeben werden, wenn z.B. eine Datei nicht gefunden wird. 
+
 ## Fortschritt
 
 Da ich die Applikation von grundauf in den letzten zwei Wochen erstellt habe, ist sie noch nicht sehr weit fortgeschritten.
