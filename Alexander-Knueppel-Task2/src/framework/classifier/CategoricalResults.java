@@ -52,7 +52,11 @@ public class CategoricalResults implements Cloneable {
     }
 	
 	public void normalize() {
-		//TODO
+		double sum = 0;
+        for(double p : probabilities)
+            sum += p;
+        if(sum != 0)
+            divideScalar(sum);
 	}
 	
 	public Vector<Double> getProbabilitiesAsVector(){
