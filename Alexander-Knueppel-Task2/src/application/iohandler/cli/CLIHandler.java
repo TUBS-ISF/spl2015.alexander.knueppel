@@ -1,10 +1,15 @@
 package application.iohandler.cli;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 import application.Configuration;
+import application.features.fileloader.ArffFileLoaderFeature;
+import application.iohandler.Controller;
+import application.iohandler.FeatureNotFoundException;
 import application.iohandler.Handler;
 
 public class CLIHandler extends Handler {
@@ -31,15 +36,26 @@ public class CLIHandler extends Handler {
 		// * classify *algorithm* [parameter?]
 		
 		if(input.trim().toLowerCase().equals("help"))
-			processHelp();
+			printHelpMessage();
 		else if(input.trim().toLowerCase().startsWith("load")) {
 			String[] args = getArguments(input.trim().toLowerCase().substring(4));
 			if(args == null) {
 				System.out.println("Please specify filename");
 			} else if(args.length > 1) {
 				System.out.println("Too many arguments");
-			} else
-				processLoadFile(args[0]);
+			} else {
+				try {
+					Controller.loadFile(args[0]);
+				} catch (FileNotFoundException e) {
+					System.out.println("File is not found!");
+				} catch (FeatureNotFoundException e) {
+					// TODO Auto-generated catch block
+					System.out.println("Fileformat is not supported!");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					System.err.println("Interrupted I/O Application. Please Debug application.");
+				}
+			}
 		} else if(input.trim().toLowerCase().startsWith("classify")) {
 			String[] args = getArguments(input.trim().toLowerCase().substring(8));
 			if(args == null) {
