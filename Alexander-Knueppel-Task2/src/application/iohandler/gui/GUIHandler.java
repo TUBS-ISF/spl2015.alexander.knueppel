@@ -20,7 +20,7 @@ public class GUIHandler extends Handler {
 	@Override
 	public boolean initialize() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
