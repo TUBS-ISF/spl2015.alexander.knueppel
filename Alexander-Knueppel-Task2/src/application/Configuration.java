@@ -111,30 +111,38 @@ public class Configuration {
 		for(String arg : args) {
 			if(arg.equalsIgnoreCase("--cli"))
 				cli = true;
+			else if(arg.equalsIgnoreCase("--help")) {
+				printUsage();
+				System.exit(0); //close program normally
+			}
 			else if(arg.equalsIgnoreCase("--debug")) {
 				debug = true;
 				logger.setLevel(Level.FINEST);
 			}
-			else if(arg.toLowerCase().startsWith("--logging")) {
+			else if(arg.equalsIgnoreCase("--surpress-debug")) {
+				debug = development = false;
+				logger.setLevel(Level.OFF);
+			}
+			else if(arg.toLowerCase().startsWith("--logging")) { //logging file created under /user/
 				if(arg.equalsIgnoreCase("--logging=console"))
 					logger.addHandler(new ConsoleHandler());
 				else if(arg.equalsIgnoreCase("--logging=file"))
 					logger.addHandler(new FileHandler());
 				else if(arg.equalsIgnoreCase("--logging")) {
 					logger.addHandler(new FileHandler());
-					logger.addHandler(new ConsoleHandler());
+					//logger.addHandler(new ConsoleHandler()); //?? ConsoleHandler already added?
 				} else {
 					throw new IllegalArgumentException("Wrong usage of '--logging'. '" + arg + "' is not a valid argument. Execution abborted.");
 				}
 				if(!logger.getLevel().equals(Level.FINEST))
 					logger.setLevel(Level.INFO);
 			}
-			else if(arg.equalsIgnoreCase("--nodat"))
-				dataFormats.remove(DataFormats.DF_DAT);
-			else if(arg.equalsIgnoreCase("--nocsv"))
-				dataFormats.remove(DataFormats.DF_CSV);
-			else if(arg.equalsIgnoreCase("--noarff"))
-				dataFormats.remove(DataFormats.DF_ARFF);
+//			else if(arg.equalsIgnoreCase("--nodat"))
+//				dataFormats.remove(DataFormats.DF_DAT);
+//			else if(arg.equalsIgnoreCase("--nocsv"))
+//				dataFormats.remove(DataFormats.DF_CSV);
+			else if(arg.equalsIgnoreCase("--arff")) //turn off arff support
+				featureSet.add(ArffFileLoaderFeature.class.getName());
 			else
 				throw new IllegalArgumentException("'" + arg + "' is not a valid argument. Execution abborted.");
 		}
