@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import framework.CategoricalData;
 import application.Configuration;
 import application.features.fileloader.ArffFileLoaderFeature;
 import application.iohandler.Controller;
@@ -133,12 +134,36 @@ public class CLIHandler extends Handler {
 	
 	private void processClassify(String identifier) {
 		// TODO classify data
-		System.out.println("Classify " + identifier);
+		if(Controller.currDataSet == null) {
+			System.out.println("Please load some data first!");
+			return;
+		}
 	}
 	
 	private void printStatusInformation() {
 		// TODO classify data
-		System.out.println("Status");
+		if(Controller.currDataSet == null) {
+			System.out.println("No data loaded!");
+			return;
+		}
+		
+		String str = "Categories:\n";
+		for(CategoricalData cd : Controller.currDataSet.getCategories())  {
+			str += "    '" + cd.getCategoryName() + "' = {";
+			for(int i=0; i< cd.getNumOfCategories(); ++i)
+				str += cd.getOptionName(i) + ",";
+			str = str.substring(0, str.length()-1) + "}\n";
+		}
+		str += "\n";
+		
+		str += "Numerical attributes (REAL):\n";
+		for(int i=0; i < Controller.currDataSet.getNumNumericalAttrs(); ++i) {
+			str += "    " + Controller.currDataSet.getNumericName(i) + "\n";
+		}
+		str += "\n";
+		str += "Instances: " + Controller.currDataSet.getSampleSize();
+		
+		System.out.println(str);
 	}
 	
 }
