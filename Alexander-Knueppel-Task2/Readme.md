@@ -27,10 +27,13 @@ Insgesamt befinden sich 150 Datenpunkte in der Datei und jeweils 50 Datenpunkte 
 
 ZeroR trifft also die folgende logische Aussage:
 
+```
 Overall probability: 
-   iris-setosa: 0.33333333333333326
-   iris-versicolor: 0.3333333333333333
-   iris-virginica: 0.33333333333333326
+	iris-setosa: 0.33333333333333326
+	iris-versicolor: 0.3333333333333333
+	iris-virginica: 0.33333333333333326
+```
+
    
 Also die Erfolgswahrscheinlichkeit, dass ein neuer Datenpunkt richtig klassifiziert wird, liegt bei 33%.
 ZeroR ist also mehr eine Art Dummy-Algorithmus, der mit dem eigentlichen Klassizieren noch nichts zu tun hat. 
