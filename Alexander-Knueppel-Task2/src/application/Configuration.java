@@ -11,35 +11,35 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import application.features.Feature;
+import application.features.fileloader.ArffFileLoaderFeature;
 
 /**
  * Configuration class for second exercise
  * @author Alexander
  *
  */
-public class Configuration {
-	public enum DataFormats {
-		DF_DAT, DF_CSV, DF_ARFF
-	}
-	
+public class Configuration {	
 	/*
 	 *  status variables, only a few for now for the second exercise
 	 */
+	//Versioning
+	private int major, minor, release;
 	//enable debugging for enhanced informations
 	private boolean debug;
 	//use command line interface instead of gui
 	private boolean cli;
 	//development or production
 	private boolean development;
-	//list of allowed data formats
-	private Set<DataFormats> dataFormats; 
 	//global logging unit
-	static Logger logger = Logger.getLogger("theLogger");
+	public static Logger logger = Logger.getLogger("theLogger");
 	//global feature list
-	static List<Feature> featureList = new ArrayList<Feature>();
+	public static Set<String> featureSet = new HashSet<String>();
 	
-	public Configuration(boolean development) {
+	public Configuration(boolean development, int major, int minor, int release) {
 		this.development = development;
+		this.major = major;
+		this.minor = minor;
+		this.release = release;
 		clear();
 	}
 	
