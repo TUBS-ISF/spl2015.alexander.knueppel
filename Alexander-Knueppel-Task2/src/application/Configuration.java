@@ -47,16 +47,16 @@ public class Configuration {
 		//defaults
 		debug = false;
 		cli = false;
-		dataFormats = new HashSet<DataFormats>();
-		dataFormats.add(DataFormats.DF_DAT);
-		dataFormats.add(DataFormats.DF_CSV);
-		dataFormats.add(DataFormats.DF_ARFF);
 		logger.setLevel(Level.OFF); 
+		
+		featureSet.clear();
+		// default feature list
+		//featureSet.add(ArffFileLoaderFeature.class.getName());
 	}
 	
 	//getter
 	public boolean dbg() {
-		return debug;
+		return debug || development; //if development mode is true, turn on debug as well
 	}
 	
 	public boolean cli() {
