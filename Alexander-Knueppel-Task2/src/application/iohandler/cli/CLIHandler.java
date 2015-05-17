@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 import framework.CategoricalData;
 import application.Configuration;
+import application.features.classifier.ZeroRClassifierFeature;
 import application.features.fileloader.ArffFileLoaderFeature;
 import application.iohandler.Controller;
 import application.iohandler.FeatureNotFoundException;
@@ -118,9 +119,21 @@ public class CLIHandler extends Handler {
 			complete += "info:    No features were added that provide data loading mechanisms. Sry mate, you can't do anything.\n\n";
 		}
 		
-		//if classify... no algorithms yet...
-		complete += "classify [algorithm]    Possible algorithms are [...]. Be aware that you need to load data first.\n\n";
+		ArrayList<String> classifierAlgorithms = new ArrayList<String>();
+		if(Configuration.featureSet.contains(ZeroRClassifierFeature.class.getName()))
+			classifierAlgorithms.add("zeroR");
 		
+		//if classify... no algorithms yet...
+		
+		if(classifierAlgorithms.size()>0) {
+			complete += "classify [algorithm]    Possible algorithms are ";
+			for(String c : classifierAlgorithms)
+				complete += c +",";
+			complete = complete.substring(0, complete.length() - 1);
+			
+			complete += ". Be aware that you need to load data first.\n\n";			
+		}
+
 		String[] lines = complete.split("\n");
 		
 		for (String line : lines) {
@@ -136,6 +149,18 @@ public class CLIHandler extends Handler {
 		// TODO classify data
 		if(Controller.currDataSet == null) {
 			System.out.println("Please load some data first!");
+			return;
+		}
+		
+		if(identifier.toLowerCase().equals("zeror")) {
+			if(Configuration.featureSet.contains(ZeroRClassifierFeature.class.getName())) {
+				ZeroRClassifierFeature z = new ZeroRClassifierFeature();
+				System.out.println(z.evaluate(Controller.currDataSet));
+			} else {
+				System.out.println("Algorithm not ativated!");
+			}
+		} else {
+			System.out.println("Algorithm unknown!");
 			return;
 		}
 	}
