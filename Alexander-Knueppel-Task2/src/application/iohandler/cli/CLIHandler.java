@@ -64,17 +64,20 @@ public class CLIHandler extends Handler {
 				System.out.println("Too many arguments");
 			} else
 				processClassify(args[0]);
+		} else if(input.trim().toLowerCase().equals("status")){
+			printStatusInformation();
 		} else if(!input.trim().toLowerCase().equals("quit")) {
 			// TODO error
-			System.out.println("Unknown command: " + input);
+			System.out.println("Unknown command: " + input + ". Use 'help' for more informations.");
 		}
 			
 	}
 
 	@Override
 	public boolean initialize() {
-		// TODO Auto-generated method stub
-		return false;
+		System.out.println("Simple machine learning toolbox (SPL edition) v"+ config.versionString() +".\n"
+				+ "Starting CLI... type 'help' for more information! have fun!\n");
+		return true;
 	}
 
 	@Override
