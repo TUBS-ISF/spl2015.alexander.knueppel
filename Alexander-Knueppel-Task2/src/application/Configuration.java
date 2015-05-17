@@ -11,6 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import application.features.Feature;
+import application.features.classifier.ZeroRClassifierFeature;
 import application.features.fileloader.ArffFileLoaderFeature;
 
 /**
@@ -52,6 +53,7 @@ public class Configuration {
 		featureSet.clear();
 		// default feature list
 		//featureSet.add(ArffFileLoaderFeature.class.getName());
+		featureSet.add(ZeroRClassifierFeature.class.getName());
 	}
 	
 	//getter
