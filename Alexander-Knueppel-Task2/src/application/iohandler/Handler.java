@@ -12,4 +12,11 @@ public abstract class Handler {
 	public abstract void run();
 	public abstract boolean initialize();
 	public abstract void shutdown();
+	
+	public void go() {
+		if(initialize()) {
+			run();
+			shutdown();
+		}
+	}
 }
