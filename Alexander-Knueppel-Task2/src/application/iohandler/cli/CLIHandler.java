@@ -136,9 +136,9 @@ public class CLIHandler extends Handler {
 		System.out.println("Classify " + identifier);
 	}
 	
-	private void processLoadFile(String filename) {
-		// TODO load data from a file
-		System.out.println("Load " + filename);
+	private void printStatusInformation() {
+		// TODO classify data
+		System.out.println("Status");
 	}
 	
 }
