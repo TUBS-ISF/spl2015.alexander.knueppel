@@ -67,11 +67,43 @@ public class Configuration {
 		return development;
 	}
 	
-	public Set<DataFormats> dataFormats() {
-		return dataFormats;
+	public int[] version() {
+		int[] version = new int[3];
+		version[0] = major;
+		version[1] = minor;
+		version[2] = release;
+		return version;
 	}
+	
+	public String versionString(boolean complete) {
+		int[] version = version();
+		String str = version[0] + "." + version[1] + "." +version[2];
+		if(complete)
+			str += (dev() ? " (development)" : " (stable)");
+		return str;
+	}
+	
+	public String versionString() {
+		return versionString(true);
+	}
+	
 	public void printUsage() {
-		//TODO
+		String[] lines = ("Simple machine learning toolbox (SPL edition) v"+ versionString() +".\n"
+						+ "Usage: app [parameter1] [parameter2] ...\n\n"
+						+ "Parameter:\n\n"
+						+ "--cli    Start the command line interface. Otherwise a GUI will be represented.\n\n"
+						+ "--logging[=file|=console]    Turn on logging. Specify wether a persistend file or the console will"
+						+ " be used (or both)\n\n"
+						+ "--debug    Turn on debug mode. If development mode is activated, debug mode will be automatically activated. \n\n"
+						+ "--surpress-debug    Turns development- and debug-mode off. I.e. emulates production release. \n\n"
+						+ "--arff    Add *.arff file loading support.").split("\n");
+		for (String line : lines) {
+		    String[] parts = line.split("    ");
+		    if(parts.length > 1)
+		    	System.out.printf("%-27s %s%n", parts[0], parts[1]);
+		    else
+		    	System.out.printf("%s%n", line);
+		}
 	}
 	public void parseArguments(String[] args) throws IllegalArgumentException, SecurityException, IOException {
 		clear();
