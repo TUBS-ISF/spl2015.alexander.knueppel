@@ -95,9 +95,40 @@ public class CLIHandler extends Handler {
 		return str;
 	}
 	
-	private void processHelp() {
-		// TODO help informations
-		System.out.println("This is help");
+	private void printHelpMessage() {
+		String complete = "\nSimple machine learning toolbox (SPL edition).\n"
+						+ "Use the following commands:\n\n"
+						+ "help    Prints the message you already see ;).\n\n"
+						+ "quit    Exit the program.\n\n"
+						+ "status    Gets current status of loaded files.\n\n";
+		ArrayList<String> fileformats = new ArrayList<String>();
+		
+		if(Configuration.featureSet.contains(ArffFileLoaderFeature.class.getName()))
+			fileformats.add("arff");
+		
+		complete += "load [file]    Supported formats:";
+		if(fileformats.size() > 0) {
+			for(String f : fileformats)
+				complete += " *." + f + ",";
+			complete = complete.substring(0, complete.length() - 1);
+			complete += "\n\n";
+		} else {
+			complete += " None.\n";
+			complete += "info:    No features were added that provide data loading mechanisms. Sry mate, you can't do anything.\n\n";
+		}
+		
+		//if classify... no algorithms yet...
+		complete += "classify [algorithm]    Possible algorithms are [...]. Be aware that you need to load data first.\n\n";
+		
+		String[] lines = complete.split("\n");
+		
+		for (String line : lines) {
+		    String[] parts = line.split("    ");
+		    if(parts.length > 1)
+		    	System.out.printf("%-20s %s%n", parts[0], parts[1]);
+		    else
+		    	System.out.printf("%s%n", line);
+		}
 	}
 	
 	private void processClassify(String identifier) {
