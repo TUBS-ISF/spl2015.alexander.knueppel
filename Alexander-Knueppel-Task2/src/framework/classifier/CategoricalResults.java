@@ -41,9 +41,17 @@ public class CategoricalResults implements Cloneable {
         probabilities[category] += probability;
     }
 	
+	/**
+	 * Find maximum
+	 * @return Find most likely category for certain datapoint
+	 */
 	public int mostLikely() {
-		//TODO
-		return 0;
+        int top = 0; 
+        for(int i = 1; i < probabilities.length; i++) {
+            if(probabilities[i] > probabilities[top])
+                top = i;
+        }
+        return top;
     }
 	
 	public void divideScalar(double s) {
