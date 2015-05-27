@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+	<featureModel chosenLayoutAlgorithm="1">
+		<struct>
+			<and abstract="true" mandatory="true" name="MLToolkit">
+				<description>
+					Simple java-absed machine learning toolbox with basic features for predictive data analysis
+				</description>
+				<or mandatory="true" name="UserInterface">
+					<feature mandatory="true" name="Graphical">
+						<description>
+							Graphical user interface for interacting with various algorithms 
+						</description>
+					</feature>
+					<feature mandatory="true" name="Console">
+						<description>
+							Command line interface for executing algorithms directly
+						</description>
+					</feature>
+				</or>
+				<or name="Development">
+					<description>
+						Development environment
+						
+					</description>
+					<feature mandatory="true" name="Debug">
+						<description>
+							Debugging state allows execution of unoptimized algorithms for extended information and logging
+						</description>
+					</feature>
+					<feature mandatory="true" name="ErrorLogging">
+						<description>
+							Extended logging information when facing errors
+						</description>
+					</feature>
+				</or>
+				<feature name="Logging">
+					<description>
+						General logging mechanism
+					</description>
+				</feature>
+				<or mandatory="true" name="Tasks">
+					<description>
+						Collection of tasks that this toolbox should be able to solve
+					</description>
+					<or mandatory="true" name="Classification">
+						<description>
+							General classification tasks
+						</description>
+						<feature mandatory="true" name="KNN">
+							<description>
+								k-Nearest-Neighbour Algorithm
+							</description>
+						</feature>
+						<feature mandatory="true" name="NeuralNetworks">
+							<description>
+								Implementation of Neural Network/Multi-layer perceptrons for classification
+							</description>
+						</feature>
+						<feature mandatory="true" name="NaiveBayes">
+							<description>
+								Naive bayes implementation
+							</description>
+						</feature>
+						<feature mandatory="true" name="SVM">
+							<description>
+								Simple and basic support vector machine classficator
+							</description>
+						</feature>
+					</or>
+					<and mandatory="true" name="Clustering">
+						<description>
+							Algorithms for performing clustering
+						</description>
+						<feature name="KMeans">
+							<description>
+								Basic k-means clustering algorithm with an slow heuristic approach to the selection of k
+							</description>
+						</feature>
+					</and>
+					<and mandatory="true" name="Regression">
+						<description>
+							Algorithms for performing regression
+						</description>
+						<feature name="RANSAC">
+							<description>
+								Randomized meta algorithm that is useful for fitting a model to a
+								data set that has a large amount of outliers
+							</description>
+						</feature>
+					</and>
+				</or>
+				<and name="Visualization">
+					<description>
+						Support for data visualization
+					</description>
+					<feature name="ScatterPlotMatrix">
+						<description>
+							Visualizes a matrix of scatter plots of the underlying data
+						</description>
+					</feature>
+					<feature name="Histogram">
+						<description>
+							Visualizes histograms of the underlying multi-variant data 
+						</description>
+					</feature>
+				</and>
+				<or mandatory="true" name="DataSetImport">
+					<description>
+						Various file formats to import multi-variant data
+					</description>
+					<feature mandatory="true" name="dat">
+						<description>
+							Simple *.dat-format, either binary or ascii
+						</description>
+					</feature>
+					<feature mandatory="true" name="csv">
+						<description>
+							CSV-file-format for importing multi-variant data
+						</description>
+					</feature>
+					<feature mandatory="true" name="arff">
+						<description>
+							Attribute-Relation File Format used with the Weka machine learninjg software and developed by Department of Computer Science of The University of Waikato
+						</description>
+					</feature>
+				</or>
+				<and mandatory="true" name="Evaluation">
+					<description>
+						Evaluation methods for measuring the quality of performed classification, clustering or regression
+					</description>
+					<feature name="KappaStatistics">
+						<description>
+							Evaluates a classifier based on the Kappa statistic
+						</description>
+					</feature>
+					<feature name="F1Score">
+						<description>
+							Evaluates a classifier based on the harmonic mean of precision and recall rates. Only for binary classification problems
+						</description>
+					</feature>
+					<feature name="MeanAbsError">
+						<description>
+							Uses the Mean of Absolute Errors between the predictions and the true values
+						</description>
+					</feature>
+					<feature name="MeanSqrError">
+						<description>
+							Uses the Mean of the Squared Errors between the predictions and the true values
+						</description>
+					</feature>
+					<feature name="DaviesBouldinIndex">
+						<description>
+							A measure for evaluating the quality of a clustering by measuring the distances of points to their centroids
+						</description>
+					</feature>
+				</and>
+			</and>
+		</struct>
+		<constraints>
+			<rule>
+				<imp>
+					<var>Classification</var>
+					<disj>
+						<var>KappaStatistics</var>
+						<var>F1Score</var>
+					</disj>
+				</imp>
+			</rule>
+			<rule>
+				<imp>
+					<var>Regression</var>
+					<disj>
+						<var>MeanAbsError</var>
+						<var>MeanSqrError</var>
+					</disj>
+				</imp>
+			</rule>
+			<rule>
+				<imp>
+					<var>Clustering</var>
+					<var>DaviesBouldinIndex</var>
+				</imp>
+			</rule>
+		</constraints>
+		<calculations Auto="true" Constraints="true" Features="true" Redundant="true" Tautology="true"/>
+		<comments/>
+		<featureOrder userDefined="false"/>
+	</featureModel>
