@@ -34,4 +34,12 @@ public class ZeroRClassifier implements Classifier {
             clone.result = result.clone();
         return clone;
     }
+	public void clear() {
+	}
+	public String getName() {
+		return "ZeroR Classifier";
+	}
+	public String getDescription() {
+		return "Dummy classifier without actual value";
+	}
 }
