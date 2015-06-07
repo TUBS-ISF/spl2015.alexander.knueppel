@@ -5,7 +5,9 @@ import java.io.IOException;
 import java.util.logging.Level;
 
 import application.Configuration;
+//#ifdef arff
 import application.features.fileloader.ArffFileLoaderFeature;
+//#endif
 import framework.DataSet;
 
 public class Controller {
@@ -21,9 +23,12 @@ public class Controller {
 				//TODO csv
 				throw new FeatureNotFoundException("CSV-Loader");
 			} else if(filename.trim().endsWith(".arff")) {
+				//#ifdef arff
+
 				Controller.checkFeature(ArffFileLoaderFeature.class.getName(), "Arff-Loader");
 				ArffFileLoaderFeature arff = new ArffFileLoaderFeature();
 				currDataSet = arff.loadFile(new String[]{filename});
+				//#endif
 			} else {
 				throw new FeatureNotFoundException("Unknown fileformat");
 			}
