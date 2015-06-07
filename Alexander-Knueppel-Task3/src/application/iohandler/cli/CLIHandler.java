@@ -155,7 +155,7 @@ public class CLIHandler extends Handler {
 		if(identifier.toLowerCase().equals("zeror")) {
 			if(Configuration.featureSet.contains(ZeroRClassifierFeature.class.getName())) {
 				ZeroRClassifierFeature z = new ZeroRClassifierFeature();
-				System.out.println(z.evaluate(Controller.currDataSet));
+				System.out.println(z.evaluate(Controller.currDataSet, 0));
 			} else {
 				System.out.println("Algorithm not ativated!");
 			}

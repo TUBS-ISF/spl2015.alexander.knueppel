@@ -1,13 +1,18 @@
 package application.iohandler.gui;
 
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.IOException;
 
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -16,12 +21,21 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
+import application.features.classifier.IB1ClassifierFeature;
+import application.iohandler.Controller;
+import application.iohandler.FeatureNotFoundException;
+
 public class MainFrame extends JFrame {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -1838370145680367098L;
-
+	
+	private PreprocessData preDataPanel;
+	private PreprocessAttributesList preAttributesPanel;
+	private PreprocessSelectedAttribute preSelAttributePanel;
+	private PreprocessHistogram preHistogram;
+	
 	public MainFrame() {
 		createMenuBar();
 		createTabs();
@@ -64,15 +78,97 @@ public class MainFrame extends JFrame {
 	
 	private JComponent makePreprocessPanel() {
 		JPanel panel = new JPanel(false);
-		// TODO
-		JPanel fileLoading = new JPanel();
-		fileLoading.setBorder(BorderFactory.createTitledBorder(
-                "File"));
-		//layeredPane.setPreferredSize(panel.getSize());
-		fileLoading.add(new JButton("Load file"));
+		panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
 		
-		panel.setLayout(new GridLayout(2, 2));
+		// file loading
+		JPanel fileLoading = new JPanel();
+		fileLoading.setBorder(BorderFactory.createTitledBorder("File"));
+		JButton fileLoaderBtn = new JButton("Load file");
+		fileLoaderBtn.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent arg0) {
+                JFileChooser fc = new JFileChooser();
+                int returnVal = fc.showOpenDialog(MainFrame.this);
+                if (returnVal == JFileChooser.APPROVE_OPTION) {
+                    File file = fc.getSelectedFile();
+                    try {
+						Controller.loadFile(file.getAbsolutePath());
+					} catch (FeatureNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+                    
+                    //update
+                    preDataPanel.update();
+                    preAttributesPanel.update();
+                    preSelAttributePanel.update(0);
+                    preHistogram.update(0);
+                    
+                    //test
+                    IB1ClassifierFeature f = new IB1ClassifierFeature();
+                   
+                    System.out.println( f.evaluate(Controller.currDataSet, 0));
+                    
+                    //This is where a real application would open the file.
+                    //log.append("Opening: " + file.getName() + "." + newline);
+                } else {
+                    //log.append("Open command cancelled by user." + newline);
+                }
+            }
+        });
+		fileLoading.add(fileLoaderBtn);
+		
+		// middle area
+		JPanel middleArea = new JPanel();
+		middleArea.setLayout(new GridLayout(1,2));
+		middleArea.setPreferredSize(new Dimension(800, 450));
+		//// fill middle area (left)
+		JPanel ma_data = new JPanel();
+		ma_data.setBorder(BorderFactory.createTitledBorder("Data"));
+		preDataPanel = new PreprocessData();
+		ma_data.add(preDataPanel);
+		
+		JPanel ma_attributes = new JPanel();
+		ma_attributes.setBorder(BorderFactory.createTitledBorder("Attributes"));
+		preAttributesPanel = new PreprocessAttributesList();
+		ma_attributes.add(preAttributesPanel);
+		
+		JPanel left = new JPanel();
+		left.setLayout(new BoxLayout(left, BoxLayout.PAGE_AXIS));
+		left.add(ma_data);
+		left.add(ma_attributes);
+		
+		//// fill middle area (right)
+		JPanel ma_selectedAttributes = new JPanel();
+		ma_selectedAttributes.setBorder(BorderFactory.createTitledBorder("Selected Attributes"));
+		preSelAttributePanel = new PreprocessSelectedAttribute();
+		ma_selectedAttributes.add(preSelAttributePanel);
+		
+		preHistogram = new PreprocessHistogram();
+		JPanel ma_visualize = new JPanel();
+		ma_visualize.setBorder(BorderFactory.createTitledBorder("Histogram"));
+		ma_visualize.add(preHistogram);
+		
+		JPanel right = new JPanel();
+		right.setLayout(new BoxLayout(right, BoxLayout.PAGE_AXIS));
+		right.add(ma_selectedAttributes);
+		right.add(ma_visualize);
+		
+		middleArea.add(left);
+		middleArea.add(right);
+		
+		// Status
+		JPanel status = new JPanel();
+		status.setBorder(BorderFactory.createTitledBorder("Status"));
+		status.add(new JLabel("Welcome to Machine Learning Toolbox"));
+		
+		// add panels
 		panel.add(fileLoading);
+		panel.add(middleArea);
+		panel.add(status);
 		return panel;
 	}
 	
