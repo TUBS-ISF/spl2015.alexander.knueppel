@@ -5,21 +5,42 @@ import java.io.IOException;
 
 import application.features.Feature;
 import application.features.Feature.FeatureType;
+import framework.CategoricalData;
 import framework.DataSet;
+import framework.classifier.Classifier;
 import framework.classifier.DataPoint;
+import framework.classifier.eval.Accuracy;
+import framework.classifier.eval.Kappa;
+import framework.classifier.eval.Score;
+import framework.classifier.knn.IB1;
 
 public abstract class AbstractClassifierFeature implements Feature {
 
 	public AbstractClassifierFeature() {}
 	
 	public DataSet dataSet;
-//	public abstract void train(DataSet ds);
-//	public abstract void classify(DataPoint dp);
 	
-	public abstract String evaluate(DataSet ds); //<!!! only for ex2,... not enough time...
+	public String evaluate(DataSet ds, int catIndex) { //for ex03
+		Evaluation ev = new SimpleEvaluation(10); //10 folds cross validation
+		CategoricalData cd = ds.getCategories()[catIndex].clone();
+		
+		Score kappa = new Kappa();
+		kappa.prepare(cd);
+		
+		Score accuracy = new Accuracy();
+		accuracy.prepare(cd);
+		
+		ev.addScore(kappa);
+		ev.addScore(accuracy);
+		
+		ev.evaluate(getClassifier(ds, catIndex), ds, catIndex);
+		
+		return ev.getResultString();
+	}
+	
+	public abstract Classifier getClassifier(DataSet ds, int catIndex);
 	
 	public FeatureType getFeatureType() {
-		// TODO Auto-generated method stub
 		return Feature.FeatureType.FT_CLASSIFIER;
 	}
 }
