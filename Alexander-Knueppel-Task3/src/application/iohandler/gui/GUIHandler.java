@@ -1,3 +1,5 @@
+//#ifdef Graphical
+
 package application.iohandler.gui;
 
 import application.Configuration;
@@ -29,3 +31,4 @@ public class GUIHandler extends Handler {
 		
 	}
 }
+//#endif

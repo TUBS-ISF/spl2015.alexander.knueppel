@@ -1,3 +1,5 @@
+//#ifdef Graphical
+
 package application.iohandler.gui;
 
 import java.awt.Dimension;
@@ -33,7 +35,7 @@ import framework.classifier.Classifier;
 import framework.classifier.ZeroRClassifier;
 import application.Configuration;
 import application.features.classifier.AbstractClassifierFeature;
-import application.features.classifier.IB1ClassifierFeature;
+//import application.features.classifier.IB1ClassifierFeature;
 import application.features.classifier.ZeroRClassifierFeature;
 import application.iohandler.Controller;
 import application.iohandler.FeatureNotFoundException;
@@ -48,7 +50,9 @@ public class MainFrame extends JFrame {
 	private PreprocessData preDataPanel;
 	private PreprocessAttributesList preAttributesPanel;
 	private PreprocessSelectedAttribute preSelAttributePanel;
-	private PreprocessHistogram preHistogram;
+//#ifdef Histogram
+//@	private PreprocessHistogram preHistogram;
+//#endif
 	
 	private AbstractClassifierFeature currClassifier;
 	
@@ -129,7 +133,9 @@ public class MainFrame extends JFrame {
                     preDataPanel.update();
                     preAttributesPanel.update();
                     preSelAttributePanel.update(0);
-                    preHistogram.update(0);
+//#ifdef Histogram
+//@                    preHistogram.update(0);
+//#endif               
                     
                     //add listeners
         			preAttributesPanel.getTable().getSelectionModel().addListSelectionListener(new ListSelectionListener() {
@@ -139,7 +145,9 @@ public class MainFrame extends JFrame {
         	                	//??
         	                } else {
         	                	preSelAttributePanel.update(viewRow);
-        	                    preHistogram.update(viewRow);
+//#ifdef Histogram        	                	
+//@        	                    preHistogram.update(viewRow);
+//#endif
         	                }
         	            }
         	        });		
@@ -184,16 +192,19 @@ public class MainFrame extends JFrame {
 		ma_selectedAttributes.setBorder(BorderFactory.createTitledBorder("Selected Attributes"));
 		preSelAttributePanel = new PreprocessSelectedAttribute();
 		ma_selectedAttributes.add(preSelAttributePanel);
-		
-		preHistogram = new PreprocessHistogram();
-		JPanel ma_visualize = new JPanel();
-		ma_visualize.setBorder(BorderFactory.createTitledBorder("Histogram"));
-		ma_visualize.add(preHistogram);
+//#ifdef Histogram		
+//@		preHistogram = new PreprocessHistogram();
+//@		JPanel ma_visualize = new JPanel();
+//@		ma_visualize.setBorder(BorderFactory.createTitledBorder("Histogram"));
+//@		ma_visualize.add(preHistogram);
+//#endif
 		
 		JPanel right = new JPanel();
 		right.setLayout(new BoxLayout(right, BoxLayout.PAGE_AXIS));
 		right.add(ma_selectedAttributes);
-		right.add(ma_visualize);
+		//#ifdef Histogram
+//@		right.add(ma_visualize);
+		//#endif
 		
 		middleArea.add(left);
 		middleArea.add(right);
@@ -329,3 +340,5 @@ public class MainFrame extends JFrame {
         tabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
 	}
 }
+
+//#endif

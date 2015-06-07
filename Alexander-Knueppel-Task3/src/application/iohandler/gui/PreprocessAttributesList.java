@@ -1,3 +1,4 @@
+//#ifdef Graphical
 package application.iohandler.gui;
 
 import java.awt.Dimension;
@@ -51,3 +52,4 @@ public class PreprocessAttributesList extends JPanel {
 	}
 
 }
+//#endif
