@@ -31,6 +31,8 @@ public class IB1ClassifierFeature extends AbstractClassifierFeature {
 
 	@Override
 	public Classifier getClassifier(DataSet ds, int catIndex) {
+		if(ds == null)
+			return new IB1(null,catIndex);
 		return new IB1(ds.getCategories()[catIndex],catIndex);
 	}
 }

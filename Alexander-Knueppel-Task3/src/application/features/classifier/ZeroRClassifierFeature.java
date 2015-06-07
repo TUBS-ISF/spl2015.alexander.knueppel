@@ -27,7 +27,7 @@ public class ZeroRClassifierFeature extends AbstractClassifierFeature {
 	@Override
 	public Classifier getClassifier(DataSet ds, int catIndex) {
 		// TODO Auto-generated method stub
-		return new ZeroRClassifier();
+		return new ZeroRClassifier(catIndex);
 	}
 
 }
