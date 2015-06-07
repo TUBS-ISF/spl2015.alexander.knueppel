@@ -7,7 +7,9 @@ import java.util.List;
 import java.util.Scanner;
 
 import framework.CategoricalData;
+import framework.classifier.Classifier;
 import application.Configuration;
+import application.features.classifier.AbstractClassifierFeature;
 import application.features.classifier.ZeroRClassifierFeature;
 import application.features.fileloader.ArffFileLoaderFeature;
 import application.iohandler.Controller;
@@ -62,10 +64,12 @@ public class CLIHandler extends Handler {
 			String[] args = getArguments(input.trim().toLowerCase().substring(8));
 			if(args == null) {
 				System.out.println("Please specify algorithm");
-			} else if(args.length > 1) {
+			} else if(args.length == 1) {
+					System.out.println("Too few arguments. You must specify an algorithm and the category that will be classified after!");
+			} else if(args.length > 2) {
 				System.out.println("Too many arguments");
 			} else
-				processClassify(args[0]);
+				processClassify(args[0], args[1]);
 		} else if(input.trim().toLowerCase().equals("status")){
 			printStatusInformation();
 		} else if(!input.trim().toLowerCase().equals("quit")) {
@@ -119,14 +123,18 @@ public class CLIHandler extends Handler {
 			complete += "info:    No features were added that provide data loading mechanisms. Sry mate, you can't do anything.\n\n";
 		}
 		
-		ArrayList<String> classifierAlgorithms = new ArrayList<String>();
-		if(Configuration.featureSet.contains(ZeroRClassifierFeature.class.getName()))
-			classifierAlgorithms.add("zeroR");
+		//ArrayList<String> classifierAlgorithms = new ArrayList<String>();
+		List<String> classifierAlgorithms = new ArrayList<String>();
+		for(AbstractClassifierFeature f : AbstractClassifierFeature.classifiers) {
+			if(Configuration.featureSet.contains(f.getClass().getName())) {
+				classifierAlgorithms.add(f.getClassifier(Controller.currDataSet, 0).getName());
+			}
+		}
 		
 		//if classify... no algorithms yet...
 		
 		if(classifierAlgorithms.size()>0) {
-			complete += "classify [algorithm]    Possible algorithms are ";
+			complete += "classify [algorithm] [nominal_category]   Possible algorithms are ";
 			for(String c : classifierAlgorithms)
 				complete += c +",";
 			complete = complete.substring(0, complete.length() - 1);
@@ -145,21 +153,43 @@ public class CLIHandler extends Handler {
 		}
 	}
 	
-	private void processClassify(String identifier) {
+	private void processClassify(String identifier, String catName) {
 		// TODO classify data
 		if(Controller.currDataSet == null) {
 			System.out.println("Please load some data first!");
 			return;
 		}
 		
-		if(identifier.toLowerCase().equals("zeror")) {
-			if(Configuration.featureSet.contains(ZeroRClassifierFeature.class.getName())) {
-				ZeroRClassifierFeature z = new ZeroRClassifierFeature();
-				System.out.println(z.evaluate(Controller.currDataSet, 0));
-			} else {
-				System.out.println("Algorithm not ativated!");
+		
+		if(Controller.currDataSet.getNumCategoricalAttrs() == 0) {
+			System.out.println("Data holds no nominal data (needed for classification)");
+			return;
+		}
+		int catIndex = 0;
+		for(catIndex = 0; catIndex < Controller.currDataSet.getNumCategoricalAttrs(); ++catIndex) {
+			if(catName.trim().toLowerCase().equals( Controller.currDataSet.getCategoryName(catIndex).toLowerCase())) break;
+		}
+		if(catIndex >= Controller.currDataSet.getNumCategoricalAttrs()) {
+			catIndex = Controller.currDataSet.getNumCategoricalAttrs()-1;
+		}
+		if(!catName.trim().toLowerCase().equals( Controller.currDataSet.getCategoryName(catIndex).toLowerCase())) {
+			System.out.println("Category '"+ catName + "' unknown'");
+			System.out.println("Possible categories are: ");
+			for(int i = 0; i < Controller.currDataSet.getNumCategoricalAttrs(); ++i) {
+				System.out.println("  -> " + Controller.currDataSet.getCategoryName(i));
 			}
-		} else {
+			return;
+		}
+
+		boolean algorithmTriggered = false;
+		for(AbstractClassifierFeature f : AbstractClassifierFeature.classifiers) {
+			Classifier c = f.getClassifier(Controller.currDataSet, catIndex);
+			if(Configuration.featureSet.contains(f.getClass().getName()) && identifier.trim().toLowerCase().equals(c.getName().toLowerCase())) {
+				System.out.println(f.evaluate(Controller.currDataSet, catIndex));
+				algorithmTriggered = true;
+			}
+		}
+		if(!algorithmTriggered) {
 			System.out.println("Algorithm unknown!");
 			return;
 		}
