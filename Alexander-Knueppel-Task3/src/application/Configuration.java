@@ -117,40 +117,40 @@ public class Configuration {
 		clear();
 //#ifdef Console
 //#ifdef Graphical
-//@		if(args.length == 0) {
-//@			printUsage();
-//@			System.exit(0); //close program normally	
-//@		}
-//@		for(String arg : args) {
-//@			if(arg.equalsIgnoreCase("--cli"))
-//@				cli = true;
-//@			if(arg.equalsIgnoreCase("--gui"))
-//@				cli = false;
-//@			else if(arg.equalsIgnoreCase("--help")) {
-//@				printUsage();
-//@				System.exit(0); //close program normally
-//@			}
-//@			else
-//@				throw new IllegalArgumentException("'" + arg + "' is not a valid argument. Execution abborted.");
-//@		}
+		if(args.length == 0) {
+			printUsage();
+			System.exit(0); //close program normally	
+		}
+		for(String arg : args) {
+			if(arg.equalsIgnoreCase("--cli"))
+				cli = true;
+			if(arg.equalsIgnoreCase("--gui"))
+				cli = false;
+			else if(arg.equalsIgnoreCase("--help")) {
+				printUsage();
+				System.exit(0); //close program normally
+			}
+			else
+				throw new IllegalArgumentException("'" + arg + "' is not a valid argument. Execution abborted.");
+		}
 //#endif
 //#endif
 
 //#ifdef ConsoleLogger
-//@		logger.addHandler(new ConsoleHandler());
+		logger.addHandler(new ConsoleHandler());
 //#endif
 //#ifdef FileLogger
-//@		logger.addHandler(new FileHandler());
+		logger.addHandler(new FileHandler());
 //#endif
 
 		if(!logger.getLevel().equals(Level.FINEST))
 			logger.setLevel(Level.INFO);		
 		
 //#ifdef Debug
-//@		debug = true;
-//@		logger.setLevel(Level.FINEST);
+		debug = true;
+		logger.setLevel(Level.FINEST);
 //#else
-		logger.setLevel(Level.OFF);
+//@		logger.setLevel(Level.OFF);
 //#endif
 	}
 	

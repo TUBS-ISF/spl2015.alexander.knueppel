@@ -51,7 +51,7 @@ public class MainFrame extends JFrame {
 	private PreprocessAttributesList preAttributesPanel;
 	private PreprocessSelectedAttribute preSelAttributePanel;
 //#ifdef Histogram
-//@	private PreprocessHistogram preHistogram;
+	private PreprocessHistogram preHistogram;
 //#endif
 	
 	private AbstractClassifierFeature currClassifier;
@@ -134,7 +134,7 @@ public class MainFrame extends JFrame {
                     preAttributesPanel.update();
                     preSelAttributePanel.update(0);
 //#ifdef Histogram
-//@                    preHistogram.update(0);
+                    preHistogram.update(0);
 //#endif               
                     
                     //add listeners
@@ -146,7 +146,7 @@ public class MainFrame extends JFrame {
         	                } else {
         	                	preSelAttributePanel.update(viewRow);
 //#ifdef Histogram        	                	
-//@        	                    preHistogram.update(viewRow);
+        	                    preHistogram.update(viewRow);
 //#endif
         	                }
         	            }
@@ -193,17 +193,17 @@ public class MainFrame extends JFrame {
 		preSelAttributePanel = new PreprocessSelectedAttribute();
 		ma_selectedAttributes.add(preSelAttributePanel);
 //#ifdef Histogram		
-//@		preHistogram = new PreprocessHistogram();
-//@		JPanel ma_visualize = new JPanel();
-//@		ma_visualize.setBorder(BorderFactory.createTitledBorder("Histogram"));
-//@		ma_visualize.add(preHistogram);
+		preHistogram = new PreprocessHistogram();
+		JPanel ma_visualize = new JPanel();
+		ma_visualize.setBorder(BorderFactory.createTitledBorder("Histogram"));
+		ma_visualize.add(preHistogram);
 //#endif
 		
 		JPanel right = new JPanel();
 		right.setLayout(new BoxLayout(right, BoxLayout.PAGE_AXIS));
 		right.add(ma_selectedAttributes);
 		//#ifdef Histogram
-//@		right.add(ma_visualize);
+		right.add(ma_visualize);
 		//#endif
 		
 		middleArea.add(left);

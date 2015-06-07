@@ -6,7 +6,7 @@ import java.util.logging.Level;
 import application.iohandler.Controller;
 import application.iohandler.Handler;
 //#ifdef Console
-//@import application.iohandler.cli.CLIHandler;
+import application.iohandler.cli.CLIHandler;
 //#endif
 //#ifdef Graphical
 import application.iohandler.gui.GUIHandler;
@@ -25,20 +25,20 @@ public class App {
 			Handler viewHandler;
 //#ifdef Console 
 //#ifdef Graphical
-//@			if(config.cli()) {
-//@				Configuration.logger.log(Level.INFO, "Starting command line interface...");
-//@				viewHandler = new CLIHandler(config);
-//@			} else {
-//@				Configuration.logger.log(Level.INFO, "Starting graphical user interface...");
-//@				viewHandler = new GUIHandler(config);
-//@			}
+			if(config.cli()) {
+				Configuration.logger.log(Level.INFO, "Starting command line interface...");
+				viewHandler = new CLIHandler(config);
+			} else {
+				Configuration.logger.log(Level.INFO, "Starting graphical user interface...");
+				viewHandler = new GUIHandler(config);
+			}
 //#else
 //@			Configuration.logger.log(Level.INFO, "Starting command line interface...");
 //@			viewHandler = new CLIHandler(config);
 //#endif
 //#else
-			Configuration.logger.log(Level.INFO, "Starting graphical user interface...");
-			viewHandler = new GUIHandler(config);			
+//@			Configuration.logger.log(Level.INFO, "Starting graphical user interface...");
+//@			viewHandler = new GUIHandler(config);			
 //#endif
 			//start the engine
 			viewHandler.go();
