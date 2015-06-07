@@ -89,7 +89,7 @@ public class IB1 implements Classifier {
 	}
 	public String getName() {
 		// TODO Auto-generated method stub
-		return "IB1-Classifier";
+		return "IB1";
 	}
 	public String getDescription() {
 		// TODO Auto-generated method stub
