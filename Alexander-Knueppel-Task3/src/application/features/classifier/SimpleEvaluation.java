@@ -2,8 +2,6 @@ package application.features.classifier;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
-
 import framework.DataSet;
 import framework.SimpleDataSet;
 import framework.classifier.CategoricalResults;

@@ -1,3 +1,5 @@
+//#ifdef arff
+
 package application.features.fileloader;
 
 import java.io.File;
@@ -28,3 +30,4 @@ public class ArffFileLoaderFeature extends AbstractFileLoaderFeature {
 		return "Implemented feature for loading *.arff-datafiles";
 	}
 }
+//#endif

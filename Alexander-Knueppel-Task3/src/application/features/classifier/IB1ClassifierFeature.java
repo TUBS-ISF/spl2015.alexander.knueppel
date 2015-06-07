@@ -1,3 +1,4 @@
+//#ifdef IB1
 package application.features.classifier;
 
 import java.util.ArrayList;
@@ -12,7 +13,6 @@ import framework.classifier.Classifier;
 import framework.classifier.DataPoint;
 import framework.classifier.ZeroRClassifier;
 import framework.classifier.eval.Accuracy;
-import framework.classifier.eval.Kappa;
 import framework.classifier.eval.Score;
 import framework.classifier.knn.IB1;
 import framework.exceptions.UntrainedModelException;
@@ -36,3 +36,4 @@ public class IB1ClassifierFeature extends AbstractClassifierFeature {
 		return new IB1(ds.getCategories()[catIndex],catIndex);
 	}
 }
+//#endif

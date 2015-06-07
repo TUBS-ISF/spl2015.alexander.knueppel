@@ -1,16 +1,8 @@
 package application.features.classifier;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Vector;
-
 import framework.DataSet;
-import framework.SimpleDataSet;
-import framework.classifier.CategoricalResults;
 import framework.classifier.Classifier;
-import framework.classifier.DataPoint;
 import framework.classifier.ZeroRClassifier;
-import framework.exceptions.UntrainedModelException;
 
 public class ZeroRClassifierFeature extends AbstractClassifierFeature {
 
