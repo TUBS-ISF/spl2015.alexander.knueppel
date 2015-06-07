@@ -11,8 +11,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import application.features.Feature;
+//#ifdef IB1
+import application.features.classifier.IB1ClassifierFeature;
+//#endif
 import application.features.classifier.ZeroRClassifierFeature;
+//#ifdef arff
 import application.features.fileloader.ArffFileLoaderFeature;
+//#endif
 
 /**
  * Configuration class for second exercise
@@ -52,8 +57,13 @@ public class Configuration {
 		
 		featureSet.clear();
 		// default feature list
-		//featureSet.add(ArffFileLoaderFeature.class.getName());
+//#ifdef arff
+		featureSet.add(ArffFileLoaderFeature.class.getName());
+//#endif
 		featureSet.add(ZeroRClassifierFeature.class.getName());
+//#ifdef IB1
+		featureSet.add(IB1ClassifierFeature.class.getName());
+//#endif
 	}
 	
 	//getter
@@ -91,14 +101,10 @@ public class Configuration {
 	
 	public void printUsage() {
 		String[] lines = ("Simple machine learning toolbox (SPL edition) v"+ versionString() +".\n"
-						+ "Usage: app [parameter1] [parameter2] ...\n\n"
-						+ "Parameter:\n\n"
-						+ "--cli    Start the command line interface. Otherwise a GUI will be represented.\n\n"
-						+ "--logging[=file|=console]    Turn on logging. Specify wether a persistend file or the console will"
-						+ " be used (or both)\n\n"
-						+ "--debug    Turn on debug mode. If development mode is activated, debug mode will be automatically activated. \n\n"
-						+ "--surpress-debug    Turns development- and debug-mode off. I.e. emulates production release. \n\n"
-						+ "--arff    Add *.arff file loading support.").split("\n");
+						+ "Usage: app [interface]\n\n"
+						+ "Interface:\n\n"
+						+ "--cli    Start the command line interface. \n"
+						+ "--gui    Start the graphical user interface. \n").split("\n");
 		for (String line : lines) {
 		    String[] parts = line.split("    ");
 		    if(parts.length > 1)
@@ -109,45 +115,43 @@ public class Configuration {
 	}
 	public void parseArguments(String[] args) throws IllegalArgumentException, SecurityException, IOException {
 		clear();
+//#ifdef Console
+//#ifdef Graphical
+//@		if(args.length == 0) {
+//@			printUsage();
+//@			System.exit(0); //close program normally	
+//@		}
+//@		for(String arg : args) {
+//@			if(arg.equalsIgnoreCase("--cli"))
+//@				cli = true;
+//@			if(arg.equalsIgnoreCase("--gui"))
+//@				cli = false;
+//@			else if(arg.equalsIgnoreCase("--help")) {
+//@				printUsage();
+//@				System.exit(0); //close program normally
+//@			}
+//@			else
+//@				throw new IllegalArgumentException("'" + arg + "' is not a valid argument. Execution abborted.");
+//@		}
+//#endif
+//#endif
+
+//#ifdef ConsoleLogger
+//@		logger.addHandler(new ConsoleHandler());
+//#endif
+//#ifdef FileLogger
+//@		logger.addHandler(new FileHandler());
+//#endif
+
+		if(!logger.getLevel().equals(Level.FINEST))
+			logger.setLevel(Level.INFO);		
 		
-		for(String arg : args) {
-			if(arg.equalsIgnoreCase("--cli"))
-				cli = true;
-			else if(arg.equalsIgnoreCase("--help")) {
-				printUsage();
-				System.exit(0); //close program normally
-			}
-			else if(arg.equalsIgnoreCase("--debug")) {
-				debug = true;
-				logger.setLevel(Level.FINEST);
-			}
-			else if(arg.equalsIgnoreCase("--surpress-debug")) {
-				debug = development = false;
-				logger.setLevel(Level.OFF);
-			}
-			else if(arg.toLowerCase().startsWith("--logging")) { //logging file created under /user/
-				if(arg.equalsIgnoreCase("--logging=console"))
-					logger.addHandler(new ConsoleHandler());
-				else if(arg.equalsIgnoreCase("--logging=file"))
-					logger.addHandler(new FileHandler());
-				else if(arg.equalsIgnoreCase("--logging")) {
-					logger.addHandler(new FileHandler());
-					//logger.addHandler(new ConsoleHandler()); //?? ConsoleHandler already added?
-				} else {
-					throw new IllegalArgumentException("Wrong usage of '--logging'. '" + arg + "' is not a valid argument. Execution abborted.");
-				}
-				if(!logger.getLevel().equals(Level.FINEST))
-					logger.setLevel(Level.INFO);
-			}
-//			else if(arg.equalsIgnoreCase("--nodat"))
-//				dataFormats.remove(DataFormats.DF_DAT);
-//			else if(arg.equalsIgnoreCase("--nocsv"))
-//				dataFormats.remove(DataFormats.DF_CSV);
-			else if(arg.equalsIgnoreCase("--arff")) //turn off arff support
-				featureSet.add(ArffFileLoaderFeature.class.getName());
-			else
-				throw new IllegalArgumentException("'" + arg + "' is not a valid argument. Execution abborted.");
-		}
+//#ifdef Debug
+//@		debug = true;
+//@		logger.setLevel(Level.FINEST);
+//#else
+		logger.setLevel(Level.OFF);
+//#endif
 	}
 	
 }
