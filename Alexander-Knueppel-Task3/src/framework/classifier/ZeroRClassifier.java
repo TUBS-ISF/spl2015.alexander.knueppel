@@ -5,12 +5,13 @@ import framework.exceptions.UntrainedModelException;
 
 public class ZeroRClassifier implements Classifier {
 	private CategoricalResults result;
-	
-	public ZeroRClassifier() {
-		
+	private int catIndex;
+	public ZeroRClassifier(int index) {
+		catIndex = index;
 	}
-	public ZeroRClassifier(CategoricalResults c) {
+	public ZeroRClassifier(CategoricalResults c, int index) {
         result = c;
+        catIndex = index;
     }
 	
 	public CategoricalResults classify(DataPoint data) throws UntrainedModelException {
@@ -21,15 +22,15 @@ public class ZeroRClassifier implements Classifier {
 	
 	// seems to be wrong,... change later
 	public void train(DataSet dataSet) {
-		result = new CategoricalResults(dataSet.getCategories()[0].getNumOfCategories());
+		result = new CategoricalResults(dataSet.getCategories()[catIndex].getNumOfCategories());
         for(int i = 0; i < dataSet.getSampleSize(); i++)
-            result.incProb(dataSet.getDataPoint(i).getCategoricalValue(0), dataSet.getDataPoint(i).getWeight());
+            result.incProb(dataSet.getDataPoint(i).getCategoricalValue(catIndex), dataSet.getDataPoint(i).getWeight());
         result.normalize();
 	}
 	
     @Override
     public Classifier clone() {
-        ZeroRClassifier clone = new ZeroRClassifier();
+        ZeroRClassifier clone = new ZeroRClassifier(catIndex);
         if(result != null)
             clone.result = result.clone();
         return clone;
@@ -37,7 +38,7 @@ public class ZeroRClassifier implements Classifier {
 	public void clear() {
 	}
 	public String getName() {
-		return "ZeroR Classifier";
+		return "ZeroR";
 	}
 	public String getDescription() {
 		return "Dummy classifier without actual value";
