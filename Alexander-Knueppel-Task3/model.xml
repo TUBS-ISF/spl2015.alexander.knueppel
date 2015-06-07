@@ -5,7 +5,7 @@
 				<description>
 					Simple java-absed machine learning toolbox with basic features for predictive data analysis
 				</description>
-				<alt mandatory="true" name="UserInterface">
+				<or mandatory="true" name="UserInterface">
 					<feature mandatory="true" name="Graphical">
 						<description>
 							Graphical user interface for interacting with various algorithms
@@ -16,7 +16,7 @@
 							Command line interface for executing algorithms directly
 						</description>
 					</feature>
-				</alt>
+				</or>
 				<or name="Development">
 					<description>
 						Development environment
@@ -32,11 +32,13 @@
 						</description>
 					</feature>
 				</or>
-				<feature name="Logging">
+				<and name="Logging">
 					<description>
 						General logging mechanism
 					</description>
-				</feature>
+					<feature name="ConsoleLogger"/>
+					<feature name="FileLogger"/>
+				</and>
 				<or mandatory="true" name="Tasks">
 					<description>
 						Collection of tasks that this toolbox should be able to solve
@@ -66,6 +68,7 @@
 								Simple and basic support vector machine classficator
 							</description>
 						</feature>
+						<feature mandatory="true" name="ZeroR"/>
 					</or>
 					<and abstract="true" mandatory="true" name="Clustering">
 						<description>
@@ -153,38 +156,21 @@
 							A measure for evaluating the quality of a clustering by measuring the distances of points to their centroids
 						</description>
 					</feature>
+					<feature mandatory="true" name="Accuracy"/>
 				</and>
 			</and>
 		</struct>
 		<constraints>
 			<rule>
 				<imp>
-					<var>Classification</var>
-					<disj>
-						<var>KappaStatistics</var>
-						<var>F1Score</var>
-					</disj>
-				</imp>
-			</rule>
-			<rule>
-				<imp>
-					<var>Regression</var>
-					<disj>
-						<var>MeanAbsError</var>
-						<var>MeanSqrError</var>
-					</disj>
-				</imp>
-			</rule>
-			<rule>
-				<imp>
-					<var>Clustering</var>
-					<var>DaviesBouldinIndex</var>
-				</imp>
-			</rule>
-			<rule>
-				<imp>
 					<var>Visualization</var>
 					<var>Graphical</var>
+				</imp>
+			</rule>
+			<rule>
+				<imp>
+					<var>Classification</var>
+					<var>ZeroR</var>
 				</imp>
 			</rule>
 		</constraints>
