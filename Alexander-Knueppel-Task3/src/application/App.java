@@ -5,8 +5,12 @@ import java.util.logging.Level;
 
 import application.iohandler.Controller;
 import application.iohandler.Handler;
-import application.iohandler.cli.CLIHandler;
+//#ifdef Console
+//@import application.iohandler.cli.CLIHandler;
+//#endif
+//#ifdef Graphical
 import application.iohandler.gui.GUIHandler;
+//#endif
 
 public class App {
 	
@@ -15,18 +19,27 @@ public class App {
 		try {
 			config.parseArguments(args);
 			Configuration.logger.log(Level.INFO, "Arguments parsed successfully!");
+			
 			Controller.debug = config.dbg(); //looks so bad...
 			
 			Handler viewHandler;
-//#if Console
-			Configuration.logger.log(Level.INFO, "Starting command line interface...");
-			// add cli handler
-			viewHandler = new CLIHandler(config);
-//#elif Graphical
-//@			Configuration.logger.log(Level.INFO, "Starting graphical user interface...");
-//@			// add gui handler
-//@			viewHandler = new GUIHandler(config);
-//#endif	
+//#ifdef Console 
+//#ifdef Graphical
+//@			if(config.cli()) {
+//@				Configuration.logger.log(Level.INFO, "Starting command line interface...");
+//@				viewHandler = new CLIHandler(config);
+//@			} else {
+//@				Configuration.logger.log(Level.INFO, "Starting graphical user interface...");
+//@				viewHandler = new GUIHandler(config);
+//@			}
+//#else
+//@			Configuration.logger.log(Level.INFO, "Starting command line interface...");
+//@			viewHandler = new CLIHandler(config);
+//#endif
+//#else
+			Configuration.logger.log(Level.INFO, "Starting graphical user interface...");
+			viewHandler = new GUIHandler(config);			
+//#endif
 			//start the engine
 			viewHandler.go();
 			
