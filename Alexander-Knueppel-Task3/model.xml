@@ -181,6 +181,12 @@
 					<var>DaviesBouldinIndex</var>
 				</imp>
 			</rule>
+			<rule>
+				<imp>
+					<var>Visualization</var>
+					<var>Graphical</var>
+				</imp>
+			</rule>
 		</constraints>
 		<calculations Auto="true" Constraints="true" Features="true" Redundant="true" Tautology="true"/>
 		<comments/>

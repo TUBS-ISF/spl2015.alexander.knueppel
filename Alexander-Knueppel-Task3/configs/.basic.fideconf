@@ -4,9 +4,9 @@
 11UserInterface
 20Graphical
 12Console
-22Development
-22Debug
-22ErrorLogging
+11Development
+12Debug
+12ErrorLogging
 12Logging
 11Tasks
 11Classification
@@ -19,9 +19,9 @@
 22KMeans
 22Regression
 22RANSAC
-22Visualization
-22ScatterPlotMatrix
-22Histogram
+20Visualization
+20ScatterPlotMatrix
+20Histogram
 11DataSetImport
 22dat
 22csv
@@ -29,6 +29,6 @@
 11Evaluation
 12KappaStatistics
 22F1Score
-12MeanAbsError
-12MeanSqrError
+22MeanAbsError
+22MeanSqrError
 22DaviesBouldinIndex

@@ -19,9 +19,9 @@
 12KMeans
 22Regression
 22RANSAC
-22Visualization
-22ScatterPlotMatrix
-22Histogram
+20Visualization
+20ScatterPlotMatrix
+20Histogram
 11DataSetImport
 12dat
 22csv

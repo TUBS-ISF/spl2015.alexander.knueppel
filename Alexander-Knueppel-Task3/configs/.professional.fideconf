@@ -2,7 +2,7 @@
 # 0 = deselected, 1 = selected, 2 = undefined
 21MLToolkit
 11UserInterface
-12Graphical
+11Graphical
 20Console
 22Development
 22Debug
