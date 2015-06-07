@@ -18,16 +18,15 @@ public class App {
 			Controller.debug = config.dbg(); //looks so bad...
 			
 			Handler viewHandler;
-			
-			if(config.cli()) {
-				Configuration.logger.log(Level.INFO, "Starting command line interface...");
-				// add cli handler
-				viewHandler = new CLIHandler(config);
-			} else {
-				Configuration.logger.log(Level.INFO, "Starting graphical user interface...");
-				// add gui handler
-				viewHandler = new GUIHandler(config);
-			}
+//#if Console
+			Configuration.logger.log(Level.INFO, "Starting command line interface...");
+			// add cli handler
+			viewHandler = new CLIHandler(config);
+//#elif Graphical
+//@			Configuration.logger.log(Level.INFO, "Starting graphical user interface...");
+//@			// add gui handler
+//@			viewHandler = new GUIHandler(config);
+//#endif	
 			//start the engine
 			viewHandler.go();
 			
