@@ -137,7 +137,8 @@ public class Configuration {
 //#endif
 
 //#ifdef ConsoleLogger
-		logger.addHandler(new ConsoleHandler());
+		// is automatically enabled?
+		//logger.addHandler(new ConsoleHandler());
 //#endif
 //#ifdef FileLogger
 		logger.addHandler(new FileHandler());
