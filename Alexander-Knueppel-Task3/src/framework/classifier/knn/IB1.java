@@ -1,3 +1,4 @@
+//#ifdef IB1
 package framework.classifier.knn;
 
 import java.util.ArrayList;
@@ -96,3 +97,4 @@ public class IB1 implements Classifier {
 		return "Classifies data through 1-Nearest-Neighbour search (instance based classifier)";
 	}
 }
+//#endif

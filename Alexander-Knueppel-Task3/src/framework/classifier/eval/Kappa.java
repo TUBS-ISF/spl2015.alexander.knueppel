@@ -1,3 +1,4 @@
+//#ifdef KappaStatistics
 package framework.classifier.eval;
 
 import framework.CategoricalData;
@@ -70,3 +71,4 @@ public class Kappa implements Score {
 	}
 
 }
+//#endif

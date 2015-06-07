@@ -1,3 +1,4 @@
+//#ifdef arff
 package framework.fileloader;
 
 import java.io.BufferedReader;
@@ -162,3 +163,4 @@ public class ArffFileLoader implements FileLoader {
     }
 
 }
+//#endif
