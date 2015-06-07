@@ -1,9 +1,11 @@
 package application.iohandler.gui;
 
 import java.awt.Dimension;
+
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 
 import application.iohandler.Controller;
 
@@ -18,6 +20,10 @@ public class PreprocessAttributesList extends JPanel {
 //		table = new JTable(data, columnNames);
 //		add(table);
 		update();
+	}
+	
+	public JTable getTable() {
+		return table;
 	}
 	
 	public void update() {
@@ -36,6 +42,7 @@ public class PreprocessAttributesList extends JPanel {
 			if(table != null)
 				remove(table);
 			table = new JTable(data, columnNames);
+			table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			table.setPreferredScrollableViewportSize(new Dimension(300, 150));
 	        table.setFillsViewportHeight(true);
 			add(new JScrollPane(table));

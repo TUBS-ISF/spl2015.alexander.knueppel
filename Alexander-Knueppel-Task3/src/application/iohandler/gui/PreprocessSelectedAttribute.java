@@ -29,7 +29,7 @@ public class PreprocessSelectedAttribute extends JPanel {
 	
 	public void update(int n) { //attribute number
 		if(Controller.currDataSet != null) {
-			
+			this.removeAll();
 			if(n < Controller.currDataSet.getNumNumericalAttrs()) { //statistics
 				double Minimum = Double.MAX_VALUE;
 				double Maximum = 0.0;
@@ -53,8 +53,7 @@ public class PreprocessSelectedAttribute extends JPanel {
 								   {"Max.:", new Double(Maximum)},
 								   {"Mean:", new Double(Mean)},
 								   {"Std. Dev.:", new Double(StdDev)}};
-				if(table != null)
-					remove(table);
+	
 				table = new JTable(data, columnNamesReal);
 				table.setPreferredScrollableViewportSize(new Dimension(300, 150));
 		        table.setFillsViewportHeight(true);
@@ -85,14 +84,13 @@ public class PreprocessSelectedAttribute extends JPanel {
 					data[i-1] = o;
 					i++;
 				}
-				if(table != null)
-					remove(table);
+				
 				table = new JTable(data, columnNamesCategory);
 				table.setPreferredScrollableViewportSize(new Dimension(300, 150));
 		        table.setFillsViewportHeight(true);
 				add(new JScrollPane(table));
 			}
-
+			this.updateUI();
 		}
 	}
 
