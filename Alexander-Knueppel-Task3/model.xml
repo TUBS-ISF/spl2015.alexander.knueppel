@@ -5,10 +5,10 @@
 				<description>
 					Simple java-absed machine learning toolbox with basic features for predictive data analysis
 				</description>
-				<or mandatory="true" name="UserInterface">
+				<alt mandatory="true" name="UserInterface">
 					<feature mandatory="true" name="Graphical">
 						<description>
-							Graphical user interface for interacting with various algorithms 
+							Graphical user interface for interacting with various algorithms
 						</description>
 					</feature>
 					<feature mandatory="true" name="Console">
@@ -16,11 +16,10 @@
 							Command line interface for executing algorithms directly
 						</description>
 					</feature>
-				</or>
+				</alt>
 				<or name="Development">
 					<description>
 						Development environment
-						
 					</description>
 					<feature mandatory="true" name="Debug">
 						<description>
@@ -46,42 +45,43 @@
 						<description>
 							General classification tasks
 						</description>
-						<feature mandatory="true" name="KNN">
+						<or mandatory="true" name="KNN">
 							<description>
 								k-Nearest-Neighbour Algorithm
 							</description>
-						</feature>
-						<feature mandatory="true" name="NeuralNetworks">
+							<feature mandatory="true" name="IB1"/>
+						</or>
+						<feature abstract="true" mandatory="true" name="NeuralNetworks">
 							<description>
 								Implementation of Neural Network/Multi-layer perceptrons for classification
 							</description>
 						</feature>
-						<feature mandatory="true" name="NaiveBayes">
+						<feature abstract="true" mandatory="true" name="NaiveBayes">
 							<description>
 								Naive bayes implementation
 							</description>
 						</feature>
-						<feature mandatory="true" name="SVM">
+						<feature abstract="true" mandatory="true" name="SVM">
 							<description>
 								Simple and basic support vector machine classficator
 							</description>
 						</feature>
 					</or>
-					<and mandatory="true" name="Clustering">
+					<and abstract="true" mandatory="true" name="Clustering">
 						<description>
 							Algorithms for performing clustering
 						</description>
-						<feature name="KMeans">
+						<feature abstract="true" name="KMeans">
 							<description>
 								Basic k-means clustering algorithm with an slow heuristic approach to the selection of k
 							</description>
 						</feature>
 					</and>
-					<and mandatory="true" name="Regression">
+					<and abstract="true" mandatory="true" name="Regression">
 						<description>
 							Algorithms for performing regression
 						</description>
-						<feature name="RANSAC">
+						<feature abstract="true" name="RANSAC">
 							<description>
 								Randomized meta algorithm that is useful for fitting a model to a
 								data set that has a large amount of outliers
@@ -93,14 +93,14 @@
 					<description>
 						Support for data visualization
 					</description>
-					<feature name="ScatterPlotMatrix">
+					<feature abstract="true" name="ScatterPlotMatrix">
 						<description>
 							Visualizes a matrix of scatter plots of the underlying data
 						</description>
 					</feature>
 					<feature name="Histogram">
 						<description>
-							Visualizes histograms of the underlying multi-variant data 
+							Visualizes histograms of the underlying multi-variant data
 						</description>
 					</feature>
 				</and>
@@ -108,12 +108,12 @@
 					<description>
 						Various file formats to import multi-variant data
 					</description>
-					<feature mandatory="true" name="dat">
+					<feature abstract="true" mandatory="true" name="dat">
 						<description>
 							Simple *.dat-format, either binary or ascii
 						</description>
 					</feature>
-					<feature mandatory="true" name="csv">
+					<feature abstract="true" mandatory="true" name="csv">
 						<description>
 							CSV-file-format for importing multi-variant data
 						</description>
@@ -133,22 +133,22 @@
 							Evaluates a classifier based on the Kappa statistic
 						</description>
 					</feature>
-					<feature name="F1Score">
+					<feature abstract="true" name="F1Score">
 						<description>
 							Evaluates a classifier based on the harmonic mean of precision and recall rates. Only for binary classification problems
 						</description>
 					</feature>
-					<feature name="MeanAbsError">
+					<feature abstract="true" name="MeanAbsError">
 						<description>
 							Uses the Mean of Absolute Errors between the predictions and the true values
 						</description>
 					</feature>
-					<feature name="MeanSqrError">
+					<feature abstract="true" name="MeanSqrError">
 						<description>
 							Uses the Mean of the Squared Errors between the predictions and the true values
 						</description>
 					</feature>
-					<feature name="DaviesBouldinIndex">
+					<feature abstract="true" name="DaviesBouldinIndex">
 						<description>
 							A measure for evaluating the quality of a clustering by measuring the distances of points to their centroids
 						</description>
