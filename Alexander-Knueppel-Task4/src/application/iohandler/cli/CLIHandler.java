@@ -9,7 +9,9 @@ import java.util.Scanner;
 import framework.CategoricalData;
 import framework.classifier.Classifier;
 import application.Configuration;
-import application.features.classifier.AbstractClassifierFeature;
+import application.features.AbstractClassifierFeature;
+import application.features.AbstractFileLoaderFeature;
+import application.features.Feature;
 import application.features.fileloader.ArffFileLoaderFeature;
 import application.iohandler.Controller;
 import application.iohandler.FeatureNotFoundException;
@@ -108,8 +110,9 @@ public class CLIHandler extends Handler {
 						+ "status    Gets current status of loaded files.\n\n";
 		ArrayList<String> fileformats = new ArrayList<String>();
 		
-		if(Configuration.featureSet.contains(ArffFileLoaderFeature.class.getName()))
-			fileformats.add("arff");
+		for(Feature f : Controller.pluginmanager.getPlugins(AbstractFileLoaderFeature.class)) {
+			fileformats.add(((AbstractFileLoaderFeature)f).getFileExtension());
+		}
 		
 		complete += "load [file]    Supported formats:";
 		if(fileformats.size() > 0) {
@@ -124,10 +127,8 @@ public class CLIHandler extends Handler {
 		
 		//ArrayList<String> classifierAlgorithms = new ArrayList<String>();
 		List<String> classifierAlgorithms = new ArrayList<String>();
-		for(AbstractClassifierFeature f : AbstractClassifierFeature.classifiers) {
-			if(Configuration.featureSet.contains(f.getClass().getName())) {
-				classifierAlgorithms.add(f.getClassifier(Controller.currDataSet, 0).getName());
-			}
+		for(Feature f : Controller.pluginmanager.getPlugins(AbstractClassifierFeature.class)) {
+				classifierAlgorithms.add(((AbstractClassifierFeature)f).getClassifier(Controller.currDataSet, 0).getName());
 		}
 		
 		//if classify... no algorithms yet...
@@ -181,10 +182,10 @@ public class CLIHandler extends Handler {
 		}
 
 		boolean algorithmTriggered = false;
-		for(AbstractClassifierFeature f : AbstractClassifierFeature.classifiers) {
-			Classifier c = f.getClassifier(Controller.currDataSet, catIndex);
-			if(Configuration.featureSet.contains(f.getClass().getName()) && identifier.trim().toLowerCase().equals(c.getName().toLowerCase())) {
-				System.out.println(f.evaluate(Controller.currDataSet, catIndex));
+		for(Feature f : Controller.pluginmanager.getPlugins(AbstractClassifierFeature.class)) {
+			Classifier c = ((AbstractClassifierFeature)f).getClassifier(Controller.currDataSet, catIndex);
+			if(identifier.trim().toLowerCase().equals(c.getName().toLowerCase())) {
+				System.out.println(((AbstractClassifierFeature)f).evaluate(Controller.currDataSet, catIndex));
 				algorithmTriggered = true;
 			}
 		}

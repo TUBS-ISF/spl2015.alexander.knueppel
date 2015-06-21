@@ -1,5 +1,6 @@
 package application.features.classifier;
 
+import application.features.AbstractClassifierFeature;
 import framework.DataSet;
 import framework.classifier.Classifier;
 import framework.classifier.ZeroRClassifier;

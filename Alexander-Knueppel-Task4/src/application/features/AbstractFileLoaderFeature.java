@@ -1,10 +1,8 @@
-package application.features.fileloader;
+package application.features;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import application.features.Feature;
-import application.features.Feature.FeatureType;
 import framework.DataSet;
 
 public abstract class AbstractFileLoaderFeature implements Feature {
@@ -17,4 +15,6 @@ public abstract class AbstractFileLoaderFeature implements Feature {
 		// TODO Auto-generated method stub
 		return Feature.FeatureType.FT_FILE_LOADING;
 	}
+	
+	public abstract String getFileExtension();
 }

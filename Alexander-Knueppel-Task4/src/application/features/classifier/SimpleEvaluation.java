@@ -20,7 +20,7 @@ public class SimpleEvaluation implements Evaluation {
 	private int currCatIndex;
 	private int[][] confusionMatrix;
 	
-	SimpleEvaluation(int n) {
+	public SimpleEvaluation(int n) {
 		nFolds = n;
 	}
 	

@@ -39,7 +39,7 @@ public class Configuration {
 	//global logging unit
 	public static Logger logger = Logger.getLogger("theLogger");
 	//global feature list
-	public static Set<String> featureSet = new HashSet<String>();
+	//public static Set<String> featureSet = new HashSet<String>();
 	
 	public Configuration(boolean development, int major, int minor, int release) {
 		this.development = development;
@@ -55,14 +55,14 @@ public class Configuration {
 		cli = false;
 		logger.setLevel(Level.OFF); 
 		
-		featureSet.clear();
-		// default feature list
-
-		featureSet.add(ArffFileLoaderFeature.class.getName());
-
-		featureSet.add(ZeroRClassifierFeature.class.getName());
-
-		featureSet.add(IB1ClassifierFeature.class.getName());
+//		featureSet.clear();
+//		// default feature list
+//
+//		featureSet.add(ArffFileLoaderFeature.class.getName());
+//
+//		featureSet.add(ZeroRClassifierFeature.class.getName());
+//
+//		featureSet.add(IB1ClassifierFeature.class.getName());
 
 	}
 	

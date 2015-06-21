@@ -32,7 +32,8 @@ import javax.swing.event.ListSelectionListener;
 import framework.classifier.Classifier;
 import framework.classifier.ZeroRClassifier;
 import application.Configuration;
-import application.features.classifier.AbstractClassifierFeature;
+import application.features.AbstractClassifierFeature;
+import application.features.Feature;
 //import application.features.classifier.IB1ClassifierFeature;
 import application.features.classifier.ZeroRClassifierFeature;
 import application.iohandler.Controller;
@@ -222,10 +223,8 @@ public class MainFrame extends JFrame {
 		
 		
 		List<String> classifiers = new ArrayList<String>();
-		for(AbstractClassifierFeature f : AbstractClassifierFeature.classifiers) {
-			if(Configuration.featureSet.contains(f.getClass().getName())) {
-				classifiers.add(f.getClassifier(Controller.currDataSet, 0).getName());
-			}
+		for(Feature f : Controller.pluginmanager.getPlugins(AbstractClassifierFeature.class)) {
+				classifiers.add(((AbstractClassifierFeature)f).getClassifier(Controller.currDataSet, 0).getName());
 		}
 		String[] classifiersStr = new String[classifiers.size()];
 		for(int i = 0; i < classifiers.size(); ++i) {
@@ -291,7 +290,7 @@ public class MainFrame extends JFrame {
 		
 		startBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-            	currClassifier = AbstractClassifierFeature.classifiers.get(classifierList.getSelectedIndex());
+            	currClassifier = (AbstractClassifierFeature)Controller.pluginmanager.getPlugins(AbstractClassifierFeature.class).get(classifierList.getSelectedIndex());
             	consoleOutput.setText(currClassifier.evaluate(Controller.currDataSet, primeAttributeList.getSelectedIndex()));
             }
         });

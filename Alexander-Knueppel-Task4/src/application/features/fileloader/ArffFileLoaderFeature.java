@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import application.features.AbstractFileLoaderFeature;
 import framework.DataSet;
 import framework.fileloader.ArffFileLoader;
 
@@ -26,5 +27,11 @@ public class ArffFileLoaderFeature extends AbstractFileLoaderFeature {
 	public String getDescription() {
 		// TODO Auto-generated method stub
 		return "Implemented feature for loading *.arff-datafiles";
+	}
+
+	@Override
+	public String getFileExtension() {
+		// TODO Auto-generated method stub
+		return "arff";
 	}
 }

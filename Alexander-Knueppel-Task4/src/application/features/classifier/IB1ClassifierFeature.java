@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
+import application.features.AbstractClassifierFeature;
 import framework.CategoricalData;
 import framework.DataSet;
 import framework.SimpleDataSet;
