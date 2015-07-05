@@ -1,4 +1,4 @@
-package application.iohandler.cli;
+package iohandler;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -9,13 +9,9 @@ import java.util.Scanner;
 import framework.CategoricalData;
 import framework.classifier.Classifier;
 import application.Configuration;
-import application.features.AbstractClassifierFeature;
-import application.features.AbstractFileLoaderFeature;
-import application.features.Feature;
-import application.features.fileloader.ArffFileLoaderFeature;
-import application.iohandler.Controller;
-import application.iohandler.FeatureNotFoundException;
-import application.iohandler.Handler;
+import application.Controller;
+import iohandler.Handler;
+import framework.exceptions.FeatureNotFoundException;
 
 public class CLIHandler extends Handler {
 	public CLIHandler(Configuration config) {
@@ -36,10 +32,6 @@ public class CLIHandler extends Handler {
 	}
 	
 	public void processInput(String input) {
-		// TODO Parse input and choose right algorithms etc.
-		// * load data.dat
-		// * classify *algorithm* [parameter?]
-		
 		if(input.trim().toLowerCase().equals("help"))
 			printHelpMessage();
 		else if(input.trim().toLowerCase().startsWith("load")) {
@@ -51,14 +43,11 @@ public class CLIHandler extends Handler {
 			} else {
 				try {
 					Controller.loadFile(args[0]);
-				} catch (FileNotFoundException e) {
-					System.out.println("File is not found!");
+					if(Controller.currDataSet == null)
+						throw new FeatureNotFoundException("");
 				} catch (FeatureNotFoundException e) {
 					// TODO Auto-generated catch block
 					System.out.println("Fileformat is not supported!");
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					System.err.println("Interrupted I/O Application. Please Debug application.");
 				}
 			}
 		} else if(input.trim().toLowerCase().startsWith("classify")) {
@@ -102,17 +91,24 @@ public class CLIHandler extends Handler {
 		return str;
 	}
 	
+	private void addFileExtensions(ArrayList<String> a) {
+		//todo
+	}
+	
+	private void addClassifiers(ArrayList<String> a) {
+		//todo
+	}	
+	
 	private void printHelpMessage() {
 		String complete = "\nSimple machine learning toolbox (SPL edition).\n"
 						+ "Use the following commands:\n\n"
 						+ "help    Prints the message you already see ;).\n\n"
 						+ "quit    Exit the program.\n\n"
 						+ "status    Gets current status of loaded files.\n\n";
-		ArrayList<String> fileformats = new ArrayList<String>();
 		
-		for(Feature f : Controller.pluginmanager.getPlugins(AbstractFileLoaderFeature.class)) {
-			fileformats.add(((AbstractFileLoaderFeature)f).getFileExtension());
-		}
+		
+		ArrayList<String> fileformats = new ArrayList<String>();
+		addFileExtensions(fileformats);
 		
 		complete += "load [file]    Supported formats:";
 		if(fileformats.size() > 0) {
@@ -126,10 +122,11 @@ public class CLIHandler extends Handler {
 		}
 		
 		//ArrayList<String> classifierAlgorithms = new ArrayList<String>();
-		List<String> classifierAlgorithms = new ArrayList<String>();
-		for(Feature f : Controller.pluginmanager.getPlugins(AbstractClassifierFeature.class)) {
-				classifierAlgorithms.add(((AbstractClassifierFeature)f).getClassifier(Controller.currDataSet, 0).getName());
-		}
+		ArrayList<String> classifierAlgorithms = new ArrayList<String>();
+		addClassifiers(classifierAlgorithms);
+//		for(Feature f : Controller.pluginmanager.getPlugins(AbstractClassifierFeature.class)) {
+//				classifierAlgorithms.add(((AbstractClassifierFeature)f).getClassifier(Controller.currDataSet, 0).getName());
+//		}
 		
 		//if classify... no algorithms yet...
 		
@@ -151,6 +148,11 @@ public class CLIHandler extends Handler {
 		    else
 		    	System.out.printf("%s%n", line);
 		}
+	}
+	
+	private boolean classify(String identifier, int catIndex) {
+		//to be filled by features
+		return false;
 	}
 	
 	private void processClassify(String identifier, String catName) {
@@ -181,14 +183,14 @@ public class CLIHandler extends Handler {
 			return;
 		}
 
-		boolean algorithmTriggered = false;
-		for(Feature f : Controller.pluginmanager.getPlugins(AbstractClassifierFeature.class)) {
-			Classifier c = ((AbstractClassifierFeature)f).getClassifier(Controller.currDataSet, catIndex);
-			if(identifier.trim().toLowerCase().equals(c.getName().toLowerCase())) {
-				System.out.println(((AbstractClassifierFeature)f).evaluate(Controller.currDataSet, catIndex));
-				algorithmTriggered = true;
-			}
-		}
+		boolean algorithmTriggered = classify(identifier, catIndex);
+//		for(Feature f : Controller.pluginmanager.getPlugins(AbstractClassifierFeature.class)) {
+//			Classifier c = ((AbstractClassifierFeature)f).getClassifier(Controller.currDataSet, catIndex);
+//			if(identifier.trim().toLowerCase().equals(c.getName().toLowerCase())) {
+//				System.out.println(((AbstractClassifierFeature)f).evaluate(Controller.currDataSet, catIndex));
+//				algorithmTriggered = true;
+//			}
+//		}
 		if(!algorithmTriggered) {
 			System.out.println("Algorithm unknown!");
 			return;

@@ -96,22 +96,22 @@ public class Configuration {
 	}
 	public void parseArguments(String[] args) throws IllegalArgumentException, SecurityException, IOException {
 		clear();
-		if(args.length == 0) {
-			printUsage();
-			System.exit(0); //close program normally	
-		}
-		for(String arg : args) {
-			if(arg.equalsIgnoreCase("--cli"))
-				cli = true;
-			if(arg.equalsIgnoreCase("--gui"))
-				cli = false;
-			else if(arg.equalsIgnoreCase("--help")) {
-				printUsage();
-				System.exit(0); //close program normally
-			}
-			else
-				throw new IllegalArgumentException("'" + arg + "' is not a valid argument. Execution abborted.");
-		}
+//		if(args.length == 0) {
+//			printUsage();
+//			System.exit(0); //close program normally	
+//		}
+//		for(String arg : args) {
+//			if(arg.equalsIgnoreCase("--cli"))
+//				cli = true;
+//			if(arg.equalsIgnoreCase("--gui"))
+//				cli = false;
+//			else if(arg.equalsIgnoreCase("--help")) {
+//				printUsage();
+//				System.exit(0); //close program normally
+//			}
+//			else
+//				throw new IllegalArgumentException("'" + arg + "' is not a valid argument. Execution abborted.");
+//		}
 
 		logger.addHandler(new FileHandler());
 
