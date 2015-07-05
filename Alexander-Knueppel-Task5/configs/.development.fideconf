@@ -2,7 +2,7 @@
 # 0 = deselected, 1 = selected, 2 = undefined
 21MLToolkit
 11UserInterface
-11Graphical
+20Graphical
 12Console
 11Development
 12Debug
@@ -16,18 +16,18 @@
 11IB1
 22NeuralNetworks
 22NaiveBayes
-22SVM
+12SVM
 11ZeroR
 22Clustering
 22KMeans
 22Regression
 22RANSAC
-11Visualization
-22ScatterPlotMatrix
-12Histogram
+20Visualization
+20ScatterPlotMatrix
+20Histogram
 11DataSetImport
-22dat
-22csv
+12dat
+12csv
 12arff
 11Evaluation
 12KappaStatistics

@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 
 import application.Configuration;
-import framework.fileloader.ArffFileLoader;
+import framework.fileloader.CsvFileLoader;
 import framework.DataSet;
 
 public class Controller {
@@ -17,7 +17,7 @@ public class Controller {
 		
 		if(filename.trim().endsWith(".csv")) {
 			try {
-				currDataSet = (new ArffFileLoader()).loadFile(new File(filename));
+				currDataSet = (new CsvFileLoader(";")).loadFile(new File(filename));
 			} catch(FileNotFoundException e) {
 				Configuration.logger.log(Level.SEVERE, e.getMessage());
 				if(debug)

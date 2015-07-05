@@ -5,8 +5,8 @@
 				<description>
 					Simple java-absed machine learning toolbox with basic features for predictive data analysis
 				</description>
-				<or mandatory="true" name="UserInterface">
-					<feature mandatory="true" name="Graphical">
+				<alt mandatory="true" name="UserInterface">
+					<feature abstract="true" hidden="true" mandatory="true" name="Graphical">
 						<description>
 							Graphical user interface for interacting with various algorithms
 						</description>
@@ -16,7 +16,7 @@
 							Command line interface for executing algorithms directly
 						</description>
 					</feature>
-				</or>
+				</alt>
 				<or name="Development">
 					<description>
 						Development environment
@@ -63,7 +63,7 @@
 								Naive bayes implementation
 							</description>
 						</feature>
-						<feature abstract="true" mandatory="true" name="SVM">
+						<feature mandatory="true" name="SVM">
 							<description>
 								Simple and basic support vector machine classficator
 							</description>
@@ -92,7 +92,7 @@
 						</feature>
 					</and>
 				</or>
-				<and name="Visualization">
+				<and abstract="true" hidden="true" name="Visualization">
 					<description>
 						Support for data visualization
 					</description>
@@ -101,7 +101,7 @@
 							Visualizes a matrix of scatter plots of the underlying data
 						</description>
 					</feature>
-					<feature name="Histogram">
+					<feature abstract="true" name="Histogram">
 						<description>
 							Visualizes histograms of the underlying multi-variant data
 						</description>
@@ -111,7 +111,7 @@
 					<description>
 						Various file formats to import multi-variant data
 					</description>
-					<feature abstract="true" mandatory="true" name="dat">
+					<feature mandatory="true" name="dat">
 						<description>
 							Simple *.dat-format, either binary or ascii
 						</description>

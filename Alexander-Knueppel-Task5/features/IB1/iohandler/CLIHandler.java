@@ -27,7 +27,7 @@ public class CLIHandler extends Handler {
 	
 	private boolean classify(String identifier, int catIndex) {
 		boolean res = original(identifier, catIndex);
-		if(identifier.trim().toLowerCase().equals(CLIHandler.CLASSIFIER_IB1_COMMAND)) {
+		if(identifier.trim().toLowerCase().equals(CLIHandler.CLASSIFIER_IB1_COMMAND.toLowerCase())) {
 			Classifier c = new IB1(Controller.currDataSet.getCategories()[catIndex].clone(), catIndex);
 			System.out.println(Evaluation.evaluate(c, Controller.currDataSet, catIndex));
 			res = true;

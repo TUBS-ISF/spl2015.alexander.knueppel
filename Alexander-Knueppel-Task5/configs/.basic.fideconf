@@ -2,7 +2,7 @@
 # 0 = deselected, 1 = selected, 2 = undefined
 21MLToolkit
 11UserInterface
-22Graphical
+20Graphical
 12Console
 22Development
 22Debug
@@ -22,9 +22,9 @@
 22KMeans
 22Regression
 22RANSAC
-22Visualization
-22ScatterPlotMatrix
-22Histogram
+20Visualization
+20ScatterPlotMatrix
+20Histogram
 11DataSetImport
 22dat
 12csv
