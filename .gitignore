@@ -13,3 +13,5 @@ hs_err_pid*
 
 #eclipe specific
 .metadata/
+
+Alexander-Knueppel-Task*/bin
