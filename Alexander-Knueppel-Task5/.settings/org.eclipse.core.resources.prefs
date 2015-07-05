@@ -1,3 +1,11 @@
 eclipse.preferences.version=1
 encoding//configs/.basic.fideconf=UTF-8
+encoding//configs/.development.fideconf=UTF-8
+encoding//configs/.free.fideconf=UTF-8
+encoding//configs/.professional.fideconf=UTF-8
+encoding//configs/.ultimate.fideconf=UTF-8
 encoding//configs/basic.config=UTF-8
+encoding//configs/development.config=UTF-8
+encoding//configs/free.config=UTF-8
+encoding//configs/professional.config=UTF-8
+encoding//configs/ultimate.config=UTF-8
