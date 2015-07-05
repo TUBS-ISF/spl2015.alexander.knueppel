@@ -116,7 +116,7 @@
 							Simple *.dat-format, either binary or ascii
 						</description>
 					</feature>
-					<feature abstract="true" mandatory="true" name="csv">
+					<feature mandatory="true" name="csv">
 						<description>
 							CSV-file-format for importing multi-variant data
 						</description>
